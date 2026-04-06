@@ -1,41 +1,30 @@
 import Link from "next/link";
-import { getPublishedArticles } from "@/lib/api";
 
-export default async function HomePage() {
-  const articles = await getPublishedArticles();
+export default function HomePage() {
+    return (
+        <main className="min-h-screen bg-black text-white">
+            <div className="mx-auto max-w-4xl px-4 py-16 space-y-6">
+                <h1 className="text-4xl font-bold">Home Gym Picks</h1>
+                <p className="text-gray-400">
+                    Simple fitness gear and small-space home gym ideas.
+                </p>
 
-  return (
-      <main className="mx-auto max-w-3xl px-4 py-16">
-        <div className="space-y-4">
-          <h1 className="text-4xl font-bold">Affiliate Content Site</h1>
-          <p className="text-gray-700">
-            Simple MVP for bilingual affiliate articles.
-          </p>
-
-          <section className="space-y-3">
-            <h2 className="text-2xl font-semibold">Published articles</h2>
-
-            {articles.length === 0 ? (
-              <p className="text-gray-600">No published articles found.</p>
-            ) : (
-              <ul className="space-y-2">
-                {articles.map((article) => (
-                  <li key={article.id}>
+                <div className="flex gap-4">
                     <Link
-                        href={`/${article.language}/${article.slug}`}
-                        className="block rounded-lg border px-4 py-3 hover:bg-gray-50"
+                        href="/en/5-home-gym-essentials-small-space"
+                        className="rounded-lg border px-4 py-2"
                     >
-                      <span className="font-medium">{article.title}</span>
-                      <span className="ml-2 text-sm text-gray-500">
-                        {article.language.toUpperCase()}
-                      </span>
+                        English Article
                     </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
-        </div>
-      </main>
-  );
+
+                    <Link
+                        href="/es/5-accesorios-gym-casa"
+                        className="rounded-lg border px-4 py-2"
+                    >
+                        Spanish Article
+                    </Link>
+                </div>
+            </div>
+        </main>
+    );
 }
