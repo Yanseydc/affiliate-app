@@ -5,14 +5,14 @@ import ProductCard from "@/components/ProductCard";
 import TranslationSwitcher from "@/components/TranslationSwitcher";
 
 type Props = {
-    params: {
+    params: Promise<{
         lang: string;
         slug: string;
-    };
+    }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const { slug } = params;
+    const { slug } = await params;
     const article = await getArticle(slug);
 
     if (!article) {
@@ -51,9 +51,14 @@ export default async function ArticlePage({ params }: Props) {
                         {article.title}
                     </h1>
 
-                    <p className="text-base leading-8 text-gray-300 sm:text-lg sm:leading-9">
-                        {article.intro}
-                    </p>
+                    <div className="border-l-2 border-amber-400/70 pl-4">
+                        <p className="mb-2 text-sm font-semibold text-amber-200">
+                            Quick take
+                        </p>
+                        <p className="text-base leading-8 text-gray-300 sm:text-lg sm:leading-9">
+                            {article.intro}
+                        </p>
+                    </div>
                 </header>
 
                 {/* 🛒 Products */}
